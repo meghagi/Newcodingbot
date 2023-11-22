@@ -1,3 +1,57 @@
+<?php
+if(isset($_POST['submit']))
+{
+  include'dbcon.php';
+  $Email=$_POST['Email'];
+  $pwd=$_POST['pwd'];
+
+
+ $que="Select * from user where email='$Email'";
+ $result=mysqli_query($con,$que);
+ $result1=mysqli_num_rows($result);
+ if($result1==1)
+ {
+   echo'<script>alert(" Duplicate Data")</script>';
+  
+  
+ //echo die;
+ }
+ else
+ {
+    $file_name = $_FILES['myfile']['name'];
+    echo "<pre>";
+    print_r($file_name);
+    echo "</pre>";
+    $t = $_FILES['myfile']['tmp_name'];
+    $path = "pics/$file_name";
+    
+    if(move_uploaded_file($t, $path)) 
+    { 
+        echo "File Successfully uploaded";
+    }
+    else
+    {
+        echo "There is something wrong in File Upload";
+    }
+
+
+}
+$query=mysqli_query($con,"INSERT INTO user(email,password,userimage)VALUES('$Email','$pwd','$file_name')");
+if($query>0)
+{
+echo"Record inserted";
+echo'<script>alert ("Congratulation record inserted")</script>';
+} 
+else
+{
+  echo"Record not inserted";
+  echo'<script>alert(" Sorry!Record not inserted")</script>';
+
+}  
+}
+
+
+?>
 <html>
 <head>
 	<title>Student Management System Welcome</title>
@@ -13,12 +67,12 @@
    <script>
   	function validateForm()
   	{
-      var correct_way=(/^\s+|\s+$/gm,'');
+      var correct_way=(/\s+/g);
       var errormessage=""
-      var a=document.getElementsById('Email').value;
-      var b=document.getElementsById('pwd').value;
-      var c=document.getElementsById('Cpwd').value;
-      var d=document.getElementsById('file1').value;
+      var a=document.getElementById('Email').value;
+      var b=document.getElementById('pwd').value;
+      var c=document.getElementById('Cpwd').value;
+      var d=document.getElementById('file1').value;
       if(a==="")
       {
         errormessage+="Please enter Email";
@@ -33,7 +87,7 @@
          	errormessage+="Email is invalid Position";
 
          }
-         if(a.CharAt(a.length-4!='.'))
+         if(a.CharAt(a.length-4!=='.'))
          {
          	errormessage+="Invalid dot position at 4";
          }
@@ -100,10 +154,10 @@
 </div>
         
 <div class="container">
-  <form action="" method=""onsubmit="return validateForm()"name="myForm">
+  <form action="" method="POST"onsubmit="return validateForm()"name="myForm">
   	<div class="form-group">
   		<label for="Email">Email:</label>
-      <input type="email" class="form-control" id="Email"  name="Uname">
+      <input type="email" class="form-control" id="Email"  name="Email" placeholder="Enter the Email">
       <span id="Message1" class="text-danger font-weight bold "></span>
       <small class="fw-light">We'll never share your email with anyone else.</small>
   
@@ -115,16 +169,16 @@
    </div>
     <div class="form-group">
   		<label for="ConfirmPassword">ConfirmPassword:</label>
-      <input type="confirmpassword" class="form-control" id="Cpwd" placeholder="Enter username" name="pwd">
+      <input type="password" class="form-control" id="Cpwd" placeholder="Enter username" name="cpwd">
       <span id="Message3" class="text-danger font-weight bold "></span>
     </div>
    <div class="form-group">
   	 <label for="Username">User Image:</label>
-      <input type="file" class="form-control" id="file1" name="file1">
+      <input type="file" class="form-control" id="file1" name="myfile">
       <span id="Message4" class="text-danger font-weight bold "></span>
     </div>
    <div class="form-group">
-	  <input type="submit" class="btn bg-primary text-white" name="submit"onsubmit="return LoginForm() " style="margin-left: 10px;">
+	  <input type="submit" class="btn bg-primary text-white" name="submit" style="margin-left: 10px;">
    </div>		
 
 </form>
