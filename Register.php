@@ -3,7 +3,7 @@ if(isset($_POST['submit']))
 {
   include'dbcon.php';
   $Email=$_POST['Email'];
-  $pwd=$_POST['pwd'];
+$pwd=$_POST['pwd'];
 
 
  $que="Select * from user where email='$Email'";
@@ -36,7 +36,7 @@ if(isset($_POST['submit']))
 
 
 }
-$query=mysqli_query($con,"INSERT INTO user(email,password,userimage)VALUES('$Email','$pwd','$file_name')");
+$query=mysqli_query($con,"INSERT INTO user(email,password, userimage)VALUES('$Email','$pwd','$file_name')");
 if($query>0)
 {
 echo"Record inserted";
