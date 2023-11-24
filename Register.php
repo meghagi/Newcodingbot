@@ -14,7 +14,7 @@ $pwd=$_POST['pwd'];
    echo'<script>alert(" Duplicate Data")</script>';
   
   
- //echo die;
+ echo die;
  }
  else
  {
@@ -23,7 +23,7 @@ $pwd=$_POST['pwd'];
     print_r($file_name);
     echo "</pre>";
     $t = $_FILES['myfile']['tmp_name'];
-    $path = "pics/$file_name";
+    $path = "pics/".$file_name;
     
     if(move_uploaded_file($t, $path)) 
     { 
@@ -145,7 +145,7 @@ else
 <body>
 <div class="container-fluid bg-dark p-3">
   <a href="login.php"class="text-white" style="font-style: bold; font-size: 20px;">Student Curd System</a>
-   <a  style="display: inline; margin-left:20px;color:grey; font-size:15px font-style:bold; "id="lgin" href="#">Login</a>
+   <a  style="display: inline; margin-left:20px;color:grey; font-size:15px font-style:bold; "id="lgin" href="login.php">Login</a>
    <a  style="display: inline; margin-left:20px;color:grey; font-size:15px font-style:bold; "id="" href="Register.php">Register</a>
 
 </div>
@@ -154,7 +154,7 @@ else
 </div>
         
 <div class="container">
-  <form action="" method="POST"onsubmit="return validateForm()"name="myForm">
+  <form action="" method="POST"onsubmit="return validateForm()"name="myForm"enctype="multipart/form-data">
   	<div class="form-group">
   		<label for="Email">Email:</label>
       <input type="email" class="form-control" id="Email"  name="Email" placeholder="Enter the Email">
