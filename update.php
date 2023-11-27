@@ -3,42 +3,84 @@
 	<title>Student Management System Welcome</title>
 	
 	
-	<link rel=" icon" href="img/apna sweets.png"type="image/png"><!-- title mei icon k liye -->
+	<!-- title mei icon k liye -->
 <meta charset="utf-8">
 	<meta name="viewport"content="width=device-width, intial-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link  rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+	<link  rel="stylesheet" href="style.css" type="text/css">
 
 
   
   <script type="text/javascript" src="jquery/jquery.js"></script> 
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+    function loadData(type,category_id)
+    {
+    $.ajax({
+     url:"country.php",
+     type:"POST",
+     data:{type:type,id:category_id},
+     success:function(data){
+      if(type=="stateData")
+      {
+        $("#State").html(data);
+      }
+     $("#Country").append(data);
+     }
+
+    });
+    }
+    loadData();
+      $("#Country").on ("change",function(){
+
+       var country=$("#Country").val();
+       loadData("stateData",country);
+
+      })   
+    });
+
+  </script>
 
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script>
 function validateForm()
     {
       var correct_way=(/\s+/g);
-      var errormessage=""
-      var a=document.getElementById('uname').value;
-      var b=document.getElementById('pwd').value;
-      
+      var errormessage="";
+        
+      var a=document.getElementById('name').value;
+      var b=document.getElementById('Country').value;
+      var c=document.getElementById('State').value;
+      var d=document.getElementById('City').value;
       if(a==="")
       {
         errormessage+="Please enter uname";
         document.getElementById("Message1").innerHTML="* Please fill uname";
  
-        document.getElementById("uname").style.borderColor="red";
+        document.getElementById("name").style.borderColor="red";
       }
        if(b==="")
       {
-        errormessage+="Please enter pwd";
-        document.getElementById("Message2").innerHTML="* Please fill password";
+        errormessage+="Please enter Country";
+        document.getElementById("Message2").innerHTML="* Please fill country";
  
-        document.getElementById("pwd").style.borderColor="red";
+        document.getElementById("Country").style.borderColor="red";
+      }
+       if(c==="")
+      {
+        errormessage+="Please enter State";
+        document.getElementById("Message3").innerHTML="* Please fill state";
+ 
+        document.getElementById("State").style.borderColor="red";
+      }
+       if(d==="")
+      {
+        errormessage+="Please enter City";
+        document.getElementById("Message4").innerHTML="* Please fill city";
+ 
+        document.getElementById("City").style.borderColor="red";
       }
        if(errormessage!="")
    {
@@ -72,26 +114,33 @@ function validateForm()
                <span id="Message1" class="text-danger font-weight bold "></span>
         </div>
          <div class="form-group">
+           
+            <label for="Country" class="mt-2">Country</label>
+            <select type="text" name="country" id="Country" class="form-control mt-2" value="<?php echo $id?>">
+            <option value="">Select Country</option>
+          </select>
+             <span id="Message2" class="text-danger font-weight bold "></span>
+ 
+         </div>
+         <div class="form-group">
   				 
-            <label for="country" class="mt-2">State</label>
-            <select type="text" name="State" id="State" class="form-control mt-2" value="<?php echo $countryID?>">
+            <label for="State" class="mt-2">State</label>
+            <select type="text" name="State" id="State" class="form-control mt-2" >
             <option value="">Select State</option>
           </select>
+             <span id="Message3" class="text-danger font-weight bold "></span>
+ 
          </div>
         <div class="form-group">
            
-            <label for="country" class="mt-2">City</label>
-            <select type="text" name="City" id="City" class="form-control mt-2" value="<?php echo $countryID?>">
+            <label for="city" class="mt-2">City</label>
+            <select type="text" name="City" id="City" class="form-control mt-2">
             <option value="">Select City</option>
           </select>
+             <span id="Message4" class="text-danger font-weight bold "></span>
+ 
          </div>
-          <div class="form-group">
-           
-            <label for="City" class="mt-2">Country</label>
-            <select type="text" name="city" id="city" class="form-control mt-2" value="<?php echo $countryID?>">
-            <option value="">Select Country</option>
-          </select>
-         </div>
+         
          
  </div>
   	<div class="col-sm-6">
