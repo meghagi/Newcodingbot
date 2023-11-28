@@ -38,8 +38,34 @@
        var country=$("#Country").val();
        loadData("stateData",country);
 
-      })   
+      })
+       function loadData1(type,category_id)
+    {
+    $.ajax({
+     url:"country.php",
+     type:"POST",
+     data:{type:type,s_id:category_id},
+     success:function(data){
+      if(type=="cityData")
+      {
+        $("#City").html(data);
+      }
+     $("#State").append(data);
+     }
+
     });
+    }
+    loadData1();
+      $("#State").on ("change",function(){
+
+       var state=$("#State").val();
+       loadData1("cityData",state);
+
+      })      
+    });
+
+  
+  
 
   </script>
 
@@ -116,7 +142,7 @@ function validateForm()
          <div class="form-group">
            
             <label for="Country" class="mt-2">Country</label>
-            <select type="text" name="country" id="Country" class="form-control mt-2" value="<?php echo $id?>">
+            <select type="text" name="country" id="Country" class="form-control mt-2" >
             <option value="">Select Country</option>
           </select>
              <span id="Message2" class="text-danger font-weight bold "></span>
@@ -125,7 +151,7 @@ function validateForm()
          <div class="form-group">
   				 
             <label for="State" class="mt-2">State</label>
-            <select type="text" name="State" id="State" class="form-control mt-2" >
+            <select type="text" name="State" id="State" class="form-control mt-2">
             <option value="">Select State</option>
           </select>
              <span id="Message3" class="text-danger font-weight bold "></span>
