@@ -87,7 +87,7 @@ session_start();
       <td><?php echo $row['email']?></td>
      <td><?php  echo '<a href="read.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'?></td>
      <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
-   <td><?php  echo '<a href="delete.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary delete_btn_ajax btn delete_id_value" title="View Details" data-toggle="tooltip"  style="background-color:red "><span class="fa fa-trash" style="background-color:red"></span></a>'?>
+   <td><?php  echo '<a href="delete.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary delete_btn_ajax btn " title="View Details" data-toggle="tooltip"  style="background-color:red "><span class="fa fa-trash" style="background-color:red"></span></a>'?>
    
 
 
