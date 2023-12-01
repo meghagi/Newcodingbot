@@ -60,7 +60,7 @@ session_start();
     </div>
 </nav>
 <div class="container">
-     <h1 class="mt-3 text-center">Users of Student CRUD System.</h1>
+  <h1 class="mt-3 text-center">Users of Student CRUD System.</h1>
   <div class="col-lg-12">
      <h1 style="background-color:lightgrey" align="center"> Display table data</h1>
      <table class="table table-striped table-hover table-bordered">
@@ -87,8 +87,9 @@ session_start();
       <td><?php echo $row['email']?></td>
      <td><?php  echo '<a href="read.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'?></td>
      <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
-   <td><?php  echo '<a href="delete.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary delete_btn_ajax btn " title="View Details" data-toggle="tooltip"  style="background-color:red "><span class="fa fa-trash" style="background-color:red"></span></a>'?>
-   
+   <td><?php echo '<a href="#'. $row['id'] .'" class="mr-3 btn btn-secondary delete_btn_ajax btn " title="View Details" data-toggle="tooltip"  style="background-color:red "><span class="fa fa-trash" style="background-color:red"></span></a>'?>
+
+  <?php  echo '<input type="hidden" class="delete_id_value" value='.$row["id"].'>';?>
 
 
 
@@ -105,8 +106,11 @@ session_start();
    
       
     </table>
-     </div>
+  
  </div>
+</div>
+
+
 
 
 <script>
@@ -129,7 +133,7 @@ session_start();
                         url: 'delete.php',
                         data: {
                             "delete_btn_set": 1,
-                            "delete_id": deleteid,
+                            "id": deleteid,
                         },
                         success: function (response) {
                             console.log("here");
