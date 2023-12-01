@@ -12,12 +12,13 @@ session_start();
    <link  rel="stylesheet" href="style.css" type="text/css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-  
-
-
+   </div>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
  
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    
 
  </head>
  <body>
@@ -106,8 +107,8 @@ session_start();
     </table>
      </div>
  </div>
-<script type="text/javascript" src="jquery/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
 <script>
     $(document).ready(function () {
         $('.delete_btn_ajax').click(function (e) {
@@ -148,6 +149,7 @@ session_start();
     });
 
 </script>
+
 </body>
 
 </html>
