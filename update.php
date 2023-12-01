@@ -1,3 +1,52 @@
+
+<?php
+include 'dbcon.php';
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+}
+if(isset($_POST['submit']))
+{
+  echo "hy";
+   
+    $countryID = $_POST['country'];
+    $stateID = $_POST['State'];
+    $cityID = $_POST['City'];
+
+    $result = mysqli_query($con,"select name from countries where id='$countryID'");
+    $row = mysqli_fetch_array($result);
+    $countryname = $row['name'];
+
+    $sresult = mysqli_query($con,"select state from states where s_id='$stateID'");
+    $row1 = mysqli_fetch_array($sresult);
+    $statename = $row1['state'];
+
+    $cresult = mysqli_query($con,"select city from cities where c_id='$cityID'");
+    $row2 = mysqli_fetch_array($cresult);
+    $cityname = $row2['city'];
+
+
+
+    $name = $_POST['uname'];
+    $sql1 = "update user set name='$name',country='$countryname', state='$statename',city='$cityname' where id='$id'";
+    $result = mysqli_query($con,$sql1);
+    $successalert = true;
+    if($result)
+{
+  echo"Record inserted";
+  echo'<script>alert(" Congratulation Record updated")</script>';
+}
+else
+{
+  echo"Record not inserted";
+  echo'<script>alert(" Sorry!Record not updated")</script>';
+
+}
+      
+    mysqli_close($con);
+}
+
+?>
+
 <html>
 <head>
 	<title>Student Management System Welcome</title>
@@ -39,12 +88,12 @@
        loadData("stateData",country);
 
       })
-       function loadData1(type,category_id)
+       function loadData1(type,category1_id)
     {
     $.ajax({
      url:"country.php",
      type:"POST",
-     data:{type:type,s_id:category_id},
+     data:{type:type,state_id :category1_id},
      success:function(data){
       if(type=="cityData")
       {
@@ -63,10 +112,7 @@
 
       })      
     });
-
-  
-  
-
+ 
   </script>
 
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -171,7 +217,8 @@ function validateForm()
  </div>
   	<div class="col-sm-6">
 	<div class="form-group">
-	 <input type="submit" class="btn bg-primary text-white" name="submit" value="Login"style="margin-left: 110px;">
+	 <input type="submit" class="btn bg-primary text-white" name="submit" value="Submit"style="margin-left: 110px;">
+    <input type="submit" class="btn bg-secondary text-white" name="cancel" value="Cancel"style="margin-left: 10px;">
 
 	</div>		
       

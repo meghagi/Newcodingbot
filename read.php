@@ -11,6 +11,18 @@ else
   echo "Welcome".$_SESSION['Email'];
 }
 
+$id = $name = $class= $section = $country = $state = $city  = $image = '';
+$id = $_GET['id'];
+
+$sql = "select * from user where id='$id';";
+$res = mysqli_query($con, $sql);
+$data = mysqli_fetch_array($res);
+
+$name = $data['name'];
+$country = $data['country'];
+$state = $data['state'];
+$city = $data['city'];
+$image = $data['userimage'];
 
 ?>
 
@@ -49,7 +61,14 @@ else
             </tr>    
         </thead>
         <tbody>
-          
+            <tr>
+                            <td><?php echo $id;?></td>
+                            <td><?php echo $name;?></td>
+                            <td><?php echo $country;?></td>
+                            <td><?php echo $state;?></td>
+                            <td><?php echo $city;?></td>
+                            <td><img src="<?php echo $image?>" width="100" height="100"></td>
+                        </tr>
 
         </tbody>
      </table>

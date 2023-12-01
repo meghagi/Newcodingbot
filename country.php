@@ -22,7 +22,7 @@ $str.="<option value='{$row['s_id']}'>{$row['state']}</option>";
 }
 else if($_POST['type']=="cityData")
 {
-$sql="SELECT * FROM cities where state_id={$_POST['s_id']}"; 
+$sql="SELECT * FROM cities where state_id={$_POST['state_id']}"; 
 $result=mysqli_query($con, $sql);
 $str="";
 while($row=mysqli_fetch_array($result))

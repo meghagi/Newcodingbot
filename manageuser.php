@@ -12,8 +12,13 @@ session_start();
    <link  rel="stylesheet" href="style.css" type="text/css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-   <script type="text/javascript" src="jquery/jquery.js"></script> 
+  
+
+
+
+ 
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
  </head>
  <body>
    <nav class="navbar navbar-expand bg-dark navbar-dark" id="nav1">
@@ -22,31 +27,31 @@ session_start();
             <li class="nav-item" id="brand">
                 <a class="navbar-brand" href="login.php" >Student CRUD System</a>
             </li>
-             <li class="nav-item" id="hm">
+             <li class="nav-item" id="hmt">
                 <a class="nav-link ms-3 active" href="admin.php">Home</a>
             </li>
-            <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href="manageuser.php">Manage User</a>
+            <li class="nav-item" id="hma">
+                <a class="nav-link ms-3 active" href="#">Manage User</a>
             </li>
-            <li class="nav-item" id="hm">
+            <li class="nav-item" id="adm">
                 <a class="nav-link ms-3 active" href="">Manage Admission</a>
             </li>
-            <li class="nav-item" id="hm">
+            <li class="nav-item" id="tec">
                 <a class="nav-link ms-3 active" href="">Manage Teacher</a>
             </li>
-            <li class="nav-item" id="hm">
+            <li class="nav-item" id="">
                 <a class="nav-link ms-3 active" href=""></a>
             </li>
-            <li class="nav-item" id="hm">
+            <li class="nav-item" id="">
                 <a class="nav-link mr-3 active" href=""></a>
             </li>
-            <li class="nav-item" id="hm">
+            <li class="nav-item" id="">
                 <a class="nav-link mr-3 active" href=""></a>
             </li>
              <li class="nav-item" id="lgout">
                 <a class="nav-link ms-3" href="logout.php"><i class="fa fa-sign-out"></i>Logout</a>
             </li>
-            <li calss="nav-item" id="prfa">
+            <li class="nav-item" id="prfa">
                 <a class="nav-link ms-3" href="useraccount_admission.php"><i class="fa fa-user"></i> Profile</a>
             </li>
            
@@ -74,15 +79,21 @@ session_start();
 ?>
       
     
-      <tr>
+     <tr>
       <td><?php echo $row['id']?></td>
     
     
       <td><?php echo $row['email']?></td>
      <td><?php  echo '<a href="read.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'?></td>
      <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
-   <td><?php  echo '<a href=".php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"  style="background-color:red"><span class="fa fa-trash" style="background-color:red"></span></a>'?></td>
+   <td><?php  echo '<a href="delete.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary delete_btn_ajax btn delete_id_value" title="View Details" data-toggle="tooltip"  style="background-color:red "><span class="fa fa-trash" style="background-color:red"></span></a>'?>
+   
+
+
+
+   </td>
   
+ 
   
   </tr>
 
@@ -95,6 +106,48 @@ session_start();
     </table>
      </div>
  </div>
+<script type="text/javascript" src="jquery/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete_btn_ajax').click(function (e) {
+            e.preventDefault();
+            var deleteid = $(this).closest("tr").find('.delete_id_value').val();
+            swal.fire({
+                title: 'Are you Sure?',
+                text: 'You want to be able to revert back.',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#9A2124',
+                confirmButtonColor: '#34A853',
+                confirmButtonText: 'Yes, Delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: 'delete.php',
+                        data: {
+                            "delete_btn_set": 1,
+                            "delete_id": deleteid,
+                        },
+                        success: function (response) {
+                            console.log("here");
+                            swal.fire(
+                                'Deleted!',
+                                'Your record has been deleted.',
+                                'success'
+                            ).then((result) => {
+                                window.location.reload();
+                            });
 
+                        }
+                    });
+                }
+            })
+        });
+    });
+
+</script>
 </body>
+
 </html>
