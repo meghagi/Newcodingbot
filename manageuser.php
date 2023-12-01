@@ -87,9 +87,8 @@ session_start();
       <td><?php echo $row['email']?></td>
      <td><?php  echo '<a href="read.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'?></td>
      <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
-   <td><?php echo '<a href="#'. $row['id'] .'" class="mr-3 btn btn-secondary delete_btn_ajax btn " title="View Details" data-toggle="tooltip"  style="background-color:red "><span class="fa fa-trash" style="background-color:red"></span></a>'?>
-
-  <?php  echo '<input type="hidden" class="delete_id_value" value='.$row["id"].'>';?>
+     <td> <?php echo '<a href="javascript:void(0)" title="Change Status" class="mr-3 btn btn-secondary delete_btn_ajax btn" data-toggle="tooltip" style="background-color:red"><span class="fa fa-trash" style="background-color:red"></span></a>' ?>
+    <?php echo '<input type="hidden" class="delete_id_value" value='.$row["id"].'>' ?>
 
 
 
