@@ -70,9 +70,11 @@ session_start();
       <th style="color: black">View</th>
       <th style="color: black">Edit</th>
       <th style="color: black">Delete</th>
+      <th style="color: black">Change Role</th>
     </tr>
    <?php
-   $sql="Select * from user";
+   $sql="SELECT * FROM user WHERE Role NOT IN ('student', 'admission', 'teacher') ORDER BY id ASC";
+
    $result=mysqli_query($con,$sql);
    while($row=mysqli_fetch_array($result))
     {
@@ -86,15 +88,22 @@ session_start();
     
       <td><?php echo $row['email']?></td>
      <td><?php  echo '<a href="read.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'?></td>
-     <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
+     <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="Edit Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
      <td> <?php echo '<a href="javascript:void(0)" title="Change Status" class="mr-3 btn btn-secondary delete_btn_ajax btn" data-toggle="tooltip" style="background-color:red"><span class="fa fa-trash" style="background-color:red"></span></a>' ?>
-    <?php echo '<input type="hidden" class="delete_id_value" value='.$row["id"].'>' ?>
+    <?php echo '<input type="hidden" class="delete_id_value" value='.$row["id"].'>' ?></td>
+   <td><?php echo "Change Role" . '<a href="javascript:void(0)" title="Change Status" class="admin_btn_ajax btn btn-success ms-3 mt-2" data-toggle="tooltip">Admin</a>';?>
+      <?php echo '<input type="hidden" class="admin_id_value" value='.$row["id"].'>' ?>
+     <?php echo  '<a href="javascript:void(0)" title="Change Status" class="student_btn_ajax btn btn-success ms-3 mt-2" data-toggle="tooltip">Student</a>';?>
+       <?php echo '<input type="hidden" class="student_id_value" value='.$row["id"].'>' ?>
+       <?php echo  '<a href="javascript:void(0)" title="Change Status" class="admission_btn_ajax btn btn-success ms-3 mt-2" data-toggle="tooltip">Admission </a>';?>
+         <?php echo '<input type="hidden" class="admission_id_value" value='.$row["id"].'>' ?>
+       <?php echo  '<a href="javascript:void(0)" title="Change Status" class="teacher_btn_ajax btn btn-success ms-3 mt-2" data-toggle="tooltip">Teacher</a>';?>
+        <?php echo '<input type="hidden" class="teacher_id_value" value='.$row["id"].'>' ?>
 
-
-
+     
+     
    </td>
-  
- 
+
   
   </tr>
 
@@ -117,6 +126,7 @@ session_start();
         $('.delete_btn_ajax').click(function (e) {
             e.preventDefault();
             var deleteid = $(this).closest("tr").find('.delete_id_value').val();
+            console.log(deleteid)
             swal.fire({
                 title: 'Are you Sure?',
                 text: 'You want to be able to revert back.',
@@ -151,6 +161,50 @@ session_start();
         });
     });
 
+
+
+
+
+
+ $(document).ready(function () {
+        $('.admin_btn_ajax').click(function (e) {
+            e.preventDefault();
+            var adminid = $(this).closest("tr").find('.admin_id_value').val();
+            console.log(adminid)
+            swal.fire({
+                title: 'Are you Sure?',
+                text: 'You want to Change to role.',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#9A2124',
+                confirmButtonColor: '#34A853',
+                confirmButtonText: 'Yes, change it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: 'change.php',
+                        data: {
+                            "admin_btn_set": 1,
+                            "id": adminid,
+                        },
+                        success: function (response) {
+                            console.log("here");
+                            swal.fire(
+                               'Changed!',
+                               'Your status has been changed.',
+                               'success'
+                            ).then((result) => {
+                                window.location.reload();
+                            });
+
+                        }
+                    });
+                }
+            })
+        });
+    });
+   
 </script>
 
 </body>
