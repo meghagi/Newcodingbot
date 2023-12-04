@@ -91,8 +91,7 @@ session_start();
      <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="Edit Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
      <td> <?php echo '<a href="javascript:void(0)" title="Change Status" class="mr-3 btn btn-secondary delete_btn_ajax btn" data-toggle="tooltip" style="background-color:red"><span class="fa fa-trash" style="background-color:red"></span></a>' ?>
     <?php echo '<input type="hidden" class="delete_id_value" value='.$row["id"].'>' ?></td>
-   <td><?php echo "Change Role" . '<a href="javascript:void(0)" title="Change Status" class="admin_btn_ajax btn btn-success ms-3 mt-2" data-toggle="tooltip">Admin</a>';?>
-      <?php echo '<input type="hidden" class="admin_id_value" value='.$row["id"].'>' ?>
+   <td>
      <?php echo  '<a href="javascript:void(0)" title="Change Status" class="student_btn_ajax btn btn-success ms-3 mt-2" data-toggle="tooltip">Student</a>';?>
        <?php echo '<input type="hidden" class="student_id_value" value='.$row["id"].'>' ?>
        <?php echo  '<a href="javascript:void(0)" title="Change Status" class="admission_btn_ajax btn btn-success ms-3 mt-2" data-toggle="tooltip">Admission </a>';?>
@@ -167,10 +166,10 @@ session_start();
 
 
  $(document).ready(function () {
-        $('.admin_btn_ajax').click(function (e) {
+        $('.student_btn_ajax').click(function (e) {
             e.preventDefault();
-            var adminid = $(this).closest("tr").find('.admin_id_value').val();
-            console.log(adminid)
+            var studentid = $(this).closest("tr").find('.student_id_value').val();
+            console.log(studentid)
             swal.fire({
                 title: 'Are you Sure?',
                 text: 'You want to Change to role.',
@@ -185,8 +184,8 @@ session_start();
                         type: "POST",
                         url: 'change.php',
                         data: {
-                            "admin_btn_set": 1,
-                            "id": adminid,
+                            "student_btn_set": 1,
+                            "id": studentid,
                         },
                         success: function (response) {
                             console.log("here");
@@ -204,6 +203,44 @@ session_start();
             })
         });
     });
+   $(document).ready(function(){
+                $('.admission_btn_ajax').click(function(e){
+                    e.preventDefault();
+                    var admissionid = $(this).closest("tr").find('.admission_id_value').val();
+                    swal.fire({
+                        title: 'Are you Sure?',
+                        text: 'You want to change role.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonColor: '#9A2124',
+                        confirmButtonColor: '#34A853',
+                        confirmButtonText: 'Yes, Change it!'
+                    }).then((result)=>{
+                        if(result.isConfirmed){
+                            $.ajax({
+                                type: "POST",
+                                url: 'change.php',
+                                data:{
+                                    "admission_btn_set": 1,
+                                    "id": admissionid,
+                                },
+                                success: function(response) {
+                                    console.log("here");
+                                    swal.fire(
+                                        'Changed!',
+                                        'Your status has been changed.',
+                                        'success'
+                                    ).then((result)=>{
+                                        window.location.reload();
+                                    });
+
+                                } 
+                            });
+                        }
+                    })
+                    });
+                });  
+              
    
 </script>
 
