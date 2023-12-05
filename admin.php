@@ -1,6 +1,7 @@
 <?php
 session_start();
 include'dbcon.php';
+  
 if(!($_SESSION['Email']))
 {
 	header('location:login.php');

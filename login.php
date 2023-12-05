@@ -26,6 +26,37 @@ while($row=mysqli_fetch_array($result))
        echo'<script>alert(" Congratulation Record Login")</script>';
     header('location:admin.php');
   }
+  if($total==1)
+  {
+     if($arr['Role']=='admin'){
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['Email'] = $email;
+                header('location: admin.php');
+            }
+            if($arr['Role']=='admission'){
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['Email'] = $email;
+                header('location: admission.php');
+            }
+            if($arr['Role']=='teacher'){
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['Email'] = $email;
+                header('location: teacher.php');
+            }
+            if($arr['Role']=='student'){
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['Email'] = $email;
+                header('location: student.php');
+            }
+  }
   else if($email==""&& $pwd=="")
 {
 

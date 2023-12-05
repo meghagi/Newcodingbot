@@ -1,6 +1,14 @@
 <?php
 include 'dbcon.php';
 session_start();
+ $email = $_SESSION['Email'];
+    $sql = mysqli_query($con,"SELECT * from user where email='$email'");
+    $row = mysqli_fetch_array($sql);
+    $role = $row['Role'];
+    if($_SESSION['loggedin']!="true" || ($_SESSION['loggedin']!=true) || $role!='admin'){
+        header("location: login.php");
+        exit;
+    }
 ?>
 <html>
 <head>
@@ -73,7 +81,8 @@ session_start();
       <th style="color: black">Change Role</th>
     </tr>
    <?php
-   $sql="SELECT * FROM user WHERE Role NOT IN ('student', 'admission', 'teacher') ORDER BY id ASC";
+   /*$sql="SELECT * FROM user WHERE Role NOT IN ('student', 'admission', 'teacher') ORDER BY id ASC";*/
+   $sql="SELECT * from user WHERE Role!='admin' ORDER by id ASC";
 
    $result=mysqli_query($con,$sql);
    while($row=mysqli_fetch_array($result))
@@ -203,6 +212,46 @@ session_start();
             })
         });
     });
+   $(document).ready(function(){
+                $('.teacher_btn_ajax').click(function(e){
+                    e.preventDefault();
+                    var admissionid = $(this).closest("tr").find('.teacher_id_value').val();
+                    swal.fire({
+                        title: 'Are you Sure?',
+                        text: 'You want to change role.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonColor: '#9A2124',
+                        confirmButtonColor: '#34A853',
+                        confirmButtonText: 'Yes, Change it!'
+                    }).then((result)=>{
+                        if(result.isConfirmed){
+                            $.ajax({
+                                type: "POST",
+                                url: 'change.php',
+                                data:{
+                                    "teacher_btn_set": 1,
+                                    "id": admissionid,
+                                },
+                                success: function(response) {
+                                    console.log("here");
+                                    swal.fire(
+                                        'Changed!',
+                                        'Your status has been changed.',
+                                        'success'
+                                    ).then((result)=>{
+                                        window.location.reload();
+                                    });
+
+                                } 
+                            });
+                        }
+                    })
+                    });
+                });  
+   
+
+
    $(document).ready(function(){
                 $('.admission_btn_ajax').click(function(e){
                     e.preventDefault();
