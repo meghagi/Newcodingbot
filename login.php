@@ -1,95 +1,53 @@
 <?php
-if(isset($_POST['submit']))
-{
-  include"dbcon.php";
-  
-  $email=$_POST['Email'];
-  $pwd=$_POST['pwd'];
-  $que="Select * from user where email='$email' and password='$pwd'";
-  $result=mysqli_query($con,$que);
-  $total=mysqli_num_rows($result);
-  
-while($row=mysqli_fetch_array($result))
-  {
-    print_r($row);
-    echo("email". $row[0]);
-    echo"<br>";
-    echo("password". $row[1]);
-  }
-  if($total==1)
-  {
-    echo $total;
-    session_start();
-    $_SESSION['Email']=$email;
-     $_SESSION['password']=$pwd;
-     echo $_SESSION['Email']."<br>".  $_SESSION['password']; //acess session
-       echo'<script>alert(" Congratulation Record Login")</script>';
-    header('location:admin.php');
-  }
-  if($total==1)
-  {
-     if($arr['Role']=='admin'){
-                $login = true;
-                session_start();
-                $_SESSION['loggedin'] = true;
-                $_SESSION['Email'] = $email;
-                header('location: admin.php');
+
+
+if (isset($_POST['submit'])) {
+    include "dbcon.php";
+
+    $email = $_POST['Email'];
+    $pwd = $_POST['pwd'];
+    $que = "SELECT * FROM user WHERE email='$email' AND password='$pwd'";
+    $result = mysqli_query($con, $que);
+    $total = mysqli_num_rows($result);
+
+    if ($total == 1) {
+        session_start();
+        $_SESSION['Email'] = $email;
+        $_SESSION['password'] = $pwd;
+        while ($row = mysqli_fetch_array($result)) {
+            switch ($row['Role']) {
+                case 'admin':
+                    header('location: admin.php');
+                    break;
+                case 'admission':
+                    header('location: admission.php');
+                    break;
+                case 'teacher':
+                    header('location: teacher.php');
+                    break;
+                case 'student':
+                    header('location: student.php');
+                    break;
             }
-            if($arr['Role']=='admission'){
-                $login = true;
-                session_start();
-                $_SESSION['loggedin'] = true;
-                $_SESSION['Email'] = $email;
-                header('location: admission.php');
-            }
-            if($arr['Role']=='teacher'){
-                $login = true;
-                session_start();
-                $_SESSION['loggedin'] = true;
-                $_SESSION['Email'] = $email;
-                header('location: teacher.php');
-            }
-            if($arr['Role']=='student'){
-                $login = true;
-                session_start();
-                $_SESSION['loggedin'] = true;
-                $_SESSION['Email'] = $email;
-                header('location: student.php');
-            }
-  }
-  else if($email==""&& $pwd=="")
-{
-
- header ("Location:login.php");
-
+        }
+    } elseif ($email == "" && $pwd == "") {
+        header("Location: login.php");
+    } else {
+        echo '<script>alert("Record not Login")</script>';
+        echo '<script>alert("Account not exist")</script>';
+    }
 }
-   else if(!( $_SESSION['Email']and $_SESSION['password']) )
-{
-
- header ("Location: login.php");
-
-}
-else
-{
-  echo "Record not selected";
-   echo'<script>alert(" Record not Login")</script>';
-    echo'<script>alert(" Account not exist")</script>';
-}
-
-}
-
-
 
 
 
 ?>
 
 
+
+
 <html>
 <head>
 	<title>Student Management System Welcome</title>
-	<html>
-<head>
 	
 	<link rel=" icon" href="img/apna sweets.png"type="image/png"><!-- title mei icon k liye -->
 <meta charset="utf-8">
@@ -134,7 +92,7 @@ function validateForm()
     return false;
    }
  }
-  </script>.
+  </script>
 </head>
 <body>
 
