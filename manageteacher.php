@@ -5,7 +5,7 @@ include'dbcon.php';
     $sql = mysqli_query($con,"SELECT * from user where email='$email'");
     $row = mysqli_fetch_array($sql);
     $role = $row['Role'];
-    if($_SESSION['loggedin']!="true" || ($_SESSION['loggedin']!=true) || $role!='admission'){
+    if($_SESSION['loggedin']!="true" || ($_SESSION['loggedin']!=true) || $role!='admin'){
         header("location: login.php");
         exit;
     }
@@ -22,6 +22,8 @@ include'dbcon.php';
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
    <script type="text/javascript" src="jquery/jquery.js"></script> 
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
  </head>
  <body>
@@ -35,16 +37,16 @@ include'dbcon.php';
                 <a class="nav-link ms-3 active" href="admin.php"></a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href="manageuser.php"></a>
+                <a class="nav-link ms-3 active" href="manageuser.php">Manage User</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="#">Manage Admission</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="managestudent.php">Manage Student</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="manageteacher.php">Manage teacher</a>
             </li>
             <li class="nav-item" id="hm">
                 <a class="nav-link mr-3 active" href=""></a>
@@ -63,46 +65,39 @@ include'dbcon.php';
     </div>
 </nav>
   <div class="container">
-     <h1 class="mt-3 text-center">Users of Student CRUD System.</h1>
-      <div class="col-lg-12">
-	   <h1 style="background-color:lightgrey" align="center"> Display table data</h1>
-	   <table class="table table-striped table-hover table-bordered">
-		<tr>
-			<th style="color:black">id</th>
-			<th style="color: black">Email</th>
+  <h1 class="mt-3 text-center">Users of Student CRUD System.</h1>
+  <div class="col-lg-12">
+     <h1 style="background-color:lightgrey" align="center"> Display manage Admission</h1>
+     <table class="table table-striped table-hover table-bordered">
+     <tr>
+      <th style="color:black">id</th>
+       <th style="color:black">Email</th>
       <th style="color: black">Role</th>
-         </tr>
-         <?php 
-         $que="SELECT * from user WHERE Role='user'or Role='student' ORDER by id ASC";
-if($result=mysqli_query($con, $que));
-while($res=mysqli_fetch_array($result))
-{
+      
+      
+      
+    </tr>
+<?php 
+    $sql = "SELECT * from user WHERE Role='teacher'";
+    $result = mysqli_query($con, $sql);
 
+    while ($res = mysqli_fetch_array($result)) {
 ?>
-			
-		
-			<tr>
-			<td><?php echo $res['id'];?></td>
-		
-		
-			<td><?php echo $res['email'];?></td>
-		
-         
-             <td><?php echo $res['Role'];?></td>
-
-             </tr>
-
-
-             <?php
-             }
-
-             ?>
-     </table>
-     
-
-     </div>
-    </div>
-
-   </div>
-  </body>
-  </html>
+    <tr>
+        <td><?php echo $res['id']; ?></td>
+        <td><?php echo $res['email']; ?></td>
+        <td><?php echo $res['Role']; ?></td>
+         <td><?php  echo '<a href="read.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'?></td>
+     <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="Edit Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
+     <td> <?php echo '<a href="javascript:void(0)" title="Change Status" class="mr-3 btn btn-secondary delete_btn_ajax btn" data-toggle="tooltip" style="background-color:red"><span class="fa fa-trash" style="background-color:red"></span></a>' ?>
+    <?php echo '<input type="hidden" class="delete_id_value" value='.$row["id"].'>' ?></td>
+   <td>
+</tr>
+<?php
+    }
+?>
+</table>
+</div>
+</div>
+</body>
+</html>

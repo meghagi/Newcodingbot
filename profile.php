@@ -1,15 +1,14 @@
 <?php
-session_start();
 include'dbcon.php';
- $email = $_SESSION['Email'];
-    $sql = mysqli_query($con,"SELECT * from user where email='$email'");
-    $row = mysqli_fetch_array($sql);
-    $role = $row['Role'];
-    if($_SESSION['loggedin']!="true" || ($_SESSION['loggedin']!=true) || $role!='admission'){
-        header("location: login.php");
-        exit;
-    }
 
+    session_start();
+
+$email = $_SESSION['Email'];
+    if(($_SESSION['loggedin']!='true') || ($_SESSION['loggedin']!=true)){
+    header("location: login.php");
+    exit;
+    }
+    
 ?>
 <html>
 <head>
@@ -32,16 +31,16 @@ include'dbcon.php';
                 <a class="navbar-brand" href="login.php" >Student CRUD System</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href="admin.php"></a>
+                <a class="nav-link ms-3 active" href="admin.php">Home</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href="manageuser.php"></a>
+                <a class="nav-link ms-3 active" href="manageuser.php">Manage User</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="">Manage Admission</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="">Manage Teacher</a>
             </li>
             <li class="nav-item" id="hm">
                 <a class="nav-link ms-3 active" href=""></a>
@@ -56,39 +55,43 @@ include'dbcon.php';
                 <a class="nav-link ms-3" href="logout.php"><i class="fa fa-sign-out"></i>Logout</a>
             </li>
             <li calss="nav-item" id="prfa">
-                <a class="nav-link ms-3" href="profile.php"><i class="fa fa-user"></i> Profile</a>
+                <a class="nav-link ms-3" href="#"><i class="fa fa-user"></i> Profile</a>
             </li>
            
         </ul>
     </div>
 </nav>
-  <div class="container">
+<div class="container">
+  
+    
      <h1 class="mt-3 text-center">Users of Student CRUD System.</h1>
       <div class="col-lg-12">
-	   <h1 style="background-color:lightgrey" align="center"> Display table data</h1>
-	   <table class="table table-striped table-hover table-bordered">
-		<tr>
-			<th style="color:black">id</th>
-			<th style="color: black">Email</th>
-      <th style="color: black">Role</th>
+       <h1 style="background-color:lightgrey" align="center"> Display table data</h1>
+       <table class="table table-striped table-hover table-bordered">
+        <tr>
+            <th style="color:black">id</th>
+            <th style="color: black">Email</th>
+      <th style="color: black">Password</th>
+     <th style="color: black">userimage</th>  
          </tr>
          <?php 
-         $que="SELECT * from user WHERE Role='user'or Role='student' ORDER by id ASC";
-if($result=mysqli_query($con, $que));
-while($res=mysqli_fetch_array($result))
+      $sql="Select * from user where email='$email'";
+      $result=mysqli_query($con,$sql);
+      while($res=mysqli_fetch_array($result))
 {
 
 ?>
-			
-		
-			<tr>
-			<td><?php echo $res['id'];?></td>
-		
-		
-			<td><?php echo $res['email'];?></td>
-		
+      
+    
+      <tr>
+      <td><?php echo $res['id'];?></td>
+    
+    
+      <td><?php echo $res['email'];?></td>
+    
          
-             <td><?php echo $res['Role'];?></td>
+             <td><?php echo $res['password'];?></td>
+             <td><img src="pics/<?php echo $res['userimage'];?>" width="100" height="100"></td>
 
              </tr>
 
@@ -97,12 +100,14 @@ while($res=mysqli_fetch_array($result))
              }
 
              ?>
-     </table>
+ 
+
+         
+       </table>
+
+       
      
-
-     </div>
-    </div>
-
-   </div>
-  </body>
-  </html>
+ </div>
+</div>
+</body>
+</html>

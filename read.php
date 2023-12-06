@@ -67,7 +67,7 @@ $image = $data['userimage'];
                             <td><?php echo $country;?></td>
                             <td><?php echo $state;?></td>
                             <td><?php echo $city;?></td>
-                            <td><img src="<?php echo $image?>" width="100" height="100"></td>
+                            <td><img src="pics/<?php echo $image?>" width="100" height="100"></td>
                         </tr>
 
         </tbody>

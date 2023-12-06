@@ -56,7 +56,7 @@ include'dbcon.php';
                 <a class="nav-link ms-3" href="logout.php"><i class="fa fa-sign-out"></i>Logout</a>
             </li>
             <li calss="nav-item" id="prfa">
-                <a class="nav-link ms-3" href="useraccount_admission.php"><i class="fa fa-user"></i> Profile</a>
+                <a class="nav-link ms-3" href="profile.php"><i class="fa fa-user"></i> Profile</a>
             </li>
            
         </ul>

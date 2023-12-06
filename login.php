@@ -11,25 +11,38 @@ if (isset($_POST['submit'])) {
     $total = mysqli_num_rows($result);
 
     if ($total == 1) {
-        session_start();
-        $_SESSION['Email'] = $email;
-        $_SESSION['password'] = $pwd;
-        while ($row = mysqli_fetch_array($result)) {
-            switch ($row['Role']) {
-                case 'admin':
-                    header('location: admin.php');
-                    break;
-                case 'admission':
-                    header('location: admission.php');
-                    break;
-                case 'teacher':
-                    header('location: teacher.php');
-                    break;
-                case 'student':
-                    header('location: student.php');
-                    break;
+       $arr=mysqli_fetch_array($result);
+       
+            if($arr['Role']=='admin'){
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['Email'] = $email;
+                header('location: admin.php');
             }
-        }
+            if($arr['Role']=='admission'){
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['Email'] = $email;
+                header('location: admission.php');
+            }
+            if($arr['Role']=='teacher'){
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['Email'] = $email;
+                header('location: teacher.php');
+            }
+            if($arr['Role']=='student'){
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['Email'] = $email;
+                header('location: student.php');
+            }
+
+            
     } elseif ($email == "" && $pwd == "") {
         header("Location: login.php");
     } else {

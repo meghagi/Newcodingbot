@@ -39,7 +39,7 @@ else
                 <a class="nav-link ms-3 active" href="manageuser.php">Manage User</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href="">Manage Admission</a>
+                <a class="nav-link ms-3 active" href="manageadmission.php">Manage Admission</a>
             </li>
             <li class="nav-item" id="hm">
                 <a class="nav-link ms-3 active" href="">Manage Teacher</a>
@@ -57,7 +57,7 @@ else
                 <a class="nav-link ms-3" href="logout.php"><i class="fa fa-sign-out"></i>Logout</a>
             </li>
             <li calss="nav-item" id="prfa">
-                <a class="nav-link ms-3" href="useraccount_admission.php"><i class="fa fa-user"></i> Profile</a>
+                <a class="nav-link ms-3" href="profile.php"><i class="fa fa-user"></i> Profile</a>
             </li>
            
         </ul>
