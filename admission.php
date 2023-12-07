@@ -25,9 +25,17 @@ include'dbcon.php';
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
  </head>
  <body>
-   <nav class="navbar navbar-expand bg-dark navbar-dark" id="nav1">
-    <div class="container-fluid">
-        <ul class="navbar-nav">
+  
+ 
+  
+        <nav class="navbar navbar-expand bg-dark navbar-dark">
+  
+
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myMenu"></button>
+      <span class="navbar-toggler-icon"></span>
+      <div class="collapse-navbar-collapse" id="myMenu">
+        
+        <ul class="navbar-nav ">
             <li class="nav-item" id="brand">
                 <a class="navbar-brand" href="login.php" >Student CRUD System</a>
             </li>
@@ -35,13 +43,13 @@ include'dbcon.php';
                 <a class="nav-link ms-3 active" href="admin.php"></a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href="manageuser.php"></a>
+                <a class="nav-link ms-3 active" href="#">Home</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="manage_user_adm.php">Manageuser</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="">Manage Student</a>
             </li>
             <li class="nav-item" id="hm">
                 <a class="nav-link ms-3 active" href=""></a>
@@ -55,13 +63,16 @@ include'dbcon.php';
              <li class="nav-item" id="lgout">
                 <a class="nav-link ms-3" href="logout.php"><i class="fa fa-sign-out"></i>Logout</a>
             </li>
-            <li calss="nav-item" id="prfa">
+            <li class="nav-item" id="prfa">
                 <a class="nav-link ms-3" href="profile.php"><i class="fa fa-user"></i> Profile</a>
             </li>
            
         </ul>
-    </div>
-</nav>
+      </div>
+    </nav>
+    
+  
+
   <div class="container">
      <h1 class="mt-3 text-center">Users of Student CRUD System.</h1>
       <div class="col-lg-12">
@@ -103,6 +114,6 @@ while($res=mysqli_fetch_array($result))
      </div>
     </div>
 
-   </div>
+   
   </body>
   </html>
