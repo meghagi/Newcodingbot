@@ -40,7 +40,7 @@ include'dbcon.php';
                 <a class="nav-link ms-3 active" href="manageuser.php">Manage User</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href="#">Manage Admission</a>
+                <a class="nav-link ms-3 active" href="manageadmission.php">Manage Admission</a>
             </li>
             <li class="nav-item" id="hm">
                 <a class="nav-link ms-3 active" href="managestudent.php">Manage Student</a>
@@ -67,7 +67,7 @@ include'dbcon.php';
   <div class="container">
   <h1 class="mt-3 text-center">Users of Student CRUD System.</h1>
   <div class="col-lg-12">
-     <h1 style="background-color:lightgrey" align="center"> Display manage Admission</h1>
+     <h1 style="background-color:lightgrey" align="center"> Display manage Teacher</h1>
      <table class="table table-striped table-hover table-bordered">
      <tr>
       <th style="color:black">id</th>
@@ -87,17 +87,106 @@ include'dbcon.php';
         <td><?php echo $res['id']; ?></td>
         <td><?php echo $res['email']; ?></td>
         <td><?php echo $res['Role']; ?></td>
-         <td><?php  echo '<a href="read.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'?></td>
-     <td><?php  echo '<a href="update.php?id='. $row['id'] .'" class="mr-3 btn btn-secondary" title="Edit Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
+         <td><?php  echo '<a href="read.php?id='. $res['id'] .'" class="mr-3 btn btn-secondary" title="View Details" data-toggle="tooltip"><span class="fa fa-eye"></span></a>'?></td>
+     <td><?php  echo '<a href="update.php?id='. $res['id'] .'" class="mr-3 btn btn-secondary" title="Edit Details" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>'?></td>
      <td> <?php echo '<a href="javascript:void(0)" title="Change Status" class="mr-3 btn btn-secondary delete_btn_ajax btn" data-toggle="tooltip" style="background-color:red"><span class="fa fa-trash" style="background-color:red"></span></a>' ?>
-    <?php echo '<input type="hidden" class="delete_id_value" value='.$row["id"].'>' ?></td>
+    <?php echo '<input type="hidden" class="delete_id_value" value='.$res["id"].'>' ?></td>
    <td>
 </tr>
 <?php
     }
 ?>
 </table>
+<div class="container mt-5">
+        <a href="updateassignteacher.php?id='. $row['id'] .'" class="ms-3 btn btn-success" title="Assign" data-toggle="tooltip">Assign Class and Subject</a>
+    </div>
+    <div class="container">
+      <h1 class="mt-3-text-center">Teachers assigned based on class and subjects.</h1>
+      <div class="col-lg-12">
+     <h1 style="background-color:lightgrey" align="center"> Display manage Teacher</h1>
+     <table class="table table-striped table-hover table-bordered">
+     <tr>
+      <th style="color:black">class</th>
+       <th style="color:black">math</th>
+      <th style="color: black">science</th>
+       <th style="color: black">hindi</th>
+       <th style="color: black">english</th>
+       <th style="color: black">physics </th>
+       <th style="color: black">chemistry</th>
+      
+      
+      
+      
+    </tr>
+<?php 
+    $sql = "SELECT * from classes";
+    $result = mysqli_query($con, $sql);
+
+    while ($res = mysqli_fetch_array($result)) {
+?>
+    <tr>
+        <td><?php echo $res['class']; ?></td>
+        <td><?php echo $res['math']; ?></td>
+        <td><?php echo $res['science']; ?></td>
+        <td><?php echo $res['hindi']; ?></td>
+        <td><?php echo $res['english']; ?></td>
+        <td><?php echo $res['physics']; ?></td>
+        <td><?php echo $res['chemistry']; ?></td>
+      </tr>
+       
+<?php
+    }
+?>
+    </table>
+  </div>
+    </div>
+
 </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('.delete_btn_ajax').click(function (e) {
+            e.preventDefault();
+            var deleteid = $(this).closest("tr").find('.delete_id_value').val();
+            console.log(deleteid)
+            swal.fire({
+                title: 'Are you Sure?',
+                text: 'You want to be able to revert back.',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#9A2124',
+                confirmButtonColor: '#34A853',
+                confirmButtonText: 'Yes, Delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: 'delete.php',
+                        data: {
+                            "delete_btn_set": 1,
+                            "id": deleteid,
+                        },
+                        success: function (response) {
+                            console.log("here");
+                            swal.fire(
+                                'Deleted!',
+                                'Your record has been deleted.',
+                                'success'
+                            ).then((result) => {
+                                window.location.reload();
+                            });
+
+                        }
+                    });
+                }
+            })
+        });
+    });
+
+
+
+
+</script>
+
 </body>
 </html>
