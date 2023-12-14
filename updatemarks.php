@@ -12,8 +12,11 @@ include'dbcon.php';
     $sucessalert = false;
 if(isset($_GET['id']))
 {
-    $id = $_GET['id'];
+    $id=$_GET['id'];
+    echo $id;
+
 }
+include'dbcon.php';
 if ($_SERVER['REQUEST_METHOD']=="POST"){
     $id = $_POST['id'];
     $res2 = mysqli_query($con,"SELECT * from user WHERE id='$id'");
@@ -120,6 +123,26 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
         <small class="fw-light">Please fill this form and submit to update admission record to the database.</small>
  
         </div>
+         <?php
+           include "dbcon.php"; 
+        
+            if($sucessalert){
+                echo '<div class="alert alert-success alert-dismissible fade show">
+                <strong>Success!</strong>Record updated.
+                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>';
+            }
+            $res2 = mysqli_query($con,"SELECT * from user WHERE id='$id'");
+            print_r($res2);
+            echo die;
+            $row2 = mysqli_fetch_array($res2);
+            echo $row2;
+            echo die;
+            $name = $row['name'];
+            $class = $row2['class'];
+            $res3 = mysqli_query($con,"SELECT * from classes where class='$class'");
+            $row3 = mysqli_fetch_array($res3);
+        ?>
         
   <div class="container">
     <form action="" method="POST"onsubmit="return validateForm()"name="myForm">
@@ -139,6 +162,9 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
               <?php
           }
               ?>
+              <?php
+                    if($row3['Chemistry']==$name){
+                    ?>
 
          <div class="form-group">
            
@@ -148,6 +174,13 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
                
            <span id="Message2" class="text-danger font-weight bold "></span>
         </div>
+         <?php
+          }
+         ?>
+        <?php
+            if($row3['Maths']==$name){
+         ?>
+
         <div class="form-group">
            
             <label for="Maths" class="mt-2">Maths</label>
@@ -156,6 +189,13 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
                
            <span id="Message3" class="text-danger font-weight bold "></span>
         </div>
+         <?php
+          }
+        ?>
+        <?php
+        if($row3['Science']==$name){
+        ?>
+
         <div class="form-group">
            
             <label for="Science" class="mt-2">Science</label>
@@ -164,6 +204,14 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
                
            <span id="Message4" class="text-danger font-weight bold "></span>
         </div>
+        <?php
+          }
+        ?>
+          <?php
+        if($row3['Hindi']==$name){
+        ?>
+
+
         <div class="form-group">
            
             <label for="Hindi" class="mt-2">Hindi</label>
@@ -172,6 +220,13 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
                
            <span id="Message5" class="text-danger font-weight bold "></span>
         </div>
+         <?php
+          }
+        ?>
+         <?php
+        if($row3['English']==$name){
+        ?>
+
         <div class="form-group">
            
             <label for="English" class="mt-2">English</label>
@@ -180,6 +235,9 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
                
            <span id="Message6" class="text-danger font-weight bold "></span>
         </div>
+         <?php
+          }
+        ?>
             <div class="col-sm-6">
     <div class="form-group">
      <input type="submit" class="btn bg-primary text-white" name="submit" value="Submit"style="margin-left: 110px;">
