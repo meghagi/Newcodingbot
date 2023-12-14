@@ -9,6 +9,8 @@ include'dbcon.php';
         header("location: login.php");
         exit;
     }
+    ?>
+    <?php
     $sucessalert = false;
 if(isset($_GET['id']))
 {
@@ -18,7 +20,10 @@ if(isset($_GET['id']))
 }
 include'dbcon.php';
 if ($_SERVER['REQUEST_METHOD']=="POST"){
+
     $id = $_POST['id'];
+
+    echo $id;
     $res2 = mysqli_query($con,"SELECT * from user WHERE id='$id'");
     $row2 = mysqli_fetch_array($res2);
     $name = $row['name'];
@@ -30,32 +35,32 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
     $row3 = mysqli_fetch_array($res3);
     if($row3['physics']==$name){
         $physics = $_POST['physics'];
-        $sql1 = "UPDATE `studentmarks` SET `physics`='$physics' WHERE name='$n';";
+        $sql1 = "UPDATE studentmarks SET physics='$physics' WHERE name='$n';";
         $result = mysqli_query($con,$sql1);
     }
-    if($row3['Chemistry']==$name){
+    if($row3['chemistry']==$name){
         $chemistry = $_POST['Chemistry'];
-        $sql1 = "UPDATE `studentmarks` SET `chemistry`='$chemistry'WHERE name='$n';";
+        $sql1 = "UPDATE studentmarks SET chemistry='$chemistry'WHERE name='$n';";
         $result = mysqli_query($con,$sql1);
     }
-    if($row3['Maths']==$name){
+    if($row3['maths']==$name){
         $math = $_POST['Maths'];
-        $sql1 = "UPDATE `studentmarks` SET `math`='$math' WHERE name='$n';";
+        $sql1 = "UPDATE studentmarks SET maths='$math' WHERE name='$n';";
         $result = mysqli_query($con,$sql1);
     }
-    if($row3['Science']==$name){
+    if($row3['science']==$name){
         $science = $_POST['Science'];
-        $sql = "UPDATE `studentmarks` SET `english`='$science' WHERE name='$n';";
+        $sql = "UPDATE studentmarks SET science='$science' WHERE name='$n';";
         $result = mysqli_query($con,$sql1);
     }
-    if($row3['Hindi']==$name){
+    if($row3['hindi']==$name){
         $Hindi = $_POST['Hindi'];
-        $sql1 = "UPDATE `studentmarks` SET `Hindi`='$Hindi' WHERE name='$n';";
+        $sql1 = "UPDATE studentmarks SET hindi='$Hindi' WHERE name='$n';";
         $result = mysqli_query($con,$sql1);
     }
-    if($row3['English']==$name){
+    if($row3['english']==$name){
         $english = $_POST['English'];
-        $sql1 = "UPDATE `studentmarks` SET `English`='$english' WHERE name='$n';";
+        $sql1 = "UPDATE studentmarks SET english='$english' WHERE name='$n';";
         $result = mysqli_query($con,$sql1);
     }
 
@@ -132,12 +137,11 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
                 <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
             </div>';
             }
-            $res2 = mysqli_query($con,"SELECT * from user WHERE id='$id'");
-            print_r($res2);
-            echo die;
+             
+            $res2 = mysqli_query($con,"SELECT * FROM user where id='$id'");
+            
             $row2 = mysqli_fetch_array($res2);
-            echo $row2;
-            echo die;
+            
             $name = $row['name'];
             $class = $row2['class'];
             $res3 = mysqli_query($con,"SELECT * from classes where class='$class'");
@@ -163,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
           }
               ?>
               <?php
-                    if($row3['Chemistry']==$name){
+                if($row3['chemistry']==$name){
                     ?>
 
          <div class="form-group">
@@ -178,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
           }
          ?>
         <?php
-            if($row3['Maths']==$name){
+            if($row3['math']==$name){
          ?>
 
         <div class="form-group">
@@ -193,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
           }
         ?>
         <?php
-        if($row3['Science']==$name){
+        if($row3['science']==$name){
         ?>
 
         <div class="form-group">
@@ -208,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
           }
         ?>
           <?php
-        if($row3['Hindi']==$name){
+        if($row3['hindi']==$name){
         ?>
 
 
@@ -224,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
           }
         ?>
          <?php
-        if($row3['English']==$name){
+        if($row3['english']==$name){
         ?>
 
         <div class="form-group">
