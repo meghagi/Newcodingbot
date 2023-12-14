@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
     echo $id;
     $res2 = mysqli_query($con,"SELECT * from user WHERE id='$id'");
     $row2 = mysqli_fetch_array($res2);
-    $name = $row['name'];
+    $name = $row2['name'];
     $n = $row2['name'];
 
 
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
     }
     if($row3['science']==$name){
         $science = $_POST['Science'];
-        $sql = "UPDATE studentmarks SET science='$science' WHERE name='$n';";
+        $sql1 = "UPDATE studentmarks SET science='$science' WHERE name='$n';";
         $result = mysqli_query($con,$sql1);
     }
     if($row3['hindi']==$name){
@@ -142,14 +142,14 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
             
             $row2 = mysqli_fetch_array($res2);
             
-            $name = $row['name'];
+            $name = $row2['name'];
             $class = $row2['class'];
             $res3 = mysqli_query($con,"SELECT * from classes where class='$class'");
             $row3 = mysqli_fetch_array($res3);
         ?>
         
   <div class="container">
-    <form action="" method="POST"onsubmit="return validateForm()"name="myForm">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST"name="myForm">
          <div class="form-group">
                         <p>Please fill this form and submit to update student marks to the database.</p>
                         <input type="hidden" name="id" id="id" class="form-control mt-2" value="<?php echo $id;?>">
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
           }
          ?>
         <?php
-            if($row3['math']==$name){
+            if($row3['maths']==$name){
          ?>
 
         <div class="form-group">
@@ -244,7 +244,8 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
         ?>
             <div class="col-sm-6">
     <div class="form-group">
-     <input type="submit" class="btn bg-primary text-white" name="submit" value="Submit"style="margin-left: 110px;">
+    <button type="submit" class="btn btn-primary" id="btnadd">Submit</button>
+
     <input type="submit" class="btn bg-secondary text-white" name="cancel" value="Cancel"style="margin-left: 10px;">
 
     </div>      
@@ -255,5 +256,3 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
 </body>
 </html>
 
-</body>
-</html>
