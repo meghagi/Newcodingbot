@@ -26,13 +26,18 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
     echo $id;
     $res2 = mysqli_query($con,"SELECT * from user WHERE id='$id'");
     $row2 = mysqli_fetch_array($res2);
-    $name = $row2['name'];
+    $name = $row['name'];
     $n = $row2['name'];
 
 
     $class = $row2['class'];
     $res3 = mysqli_query($con,"SELECT * from classes where class='$class'");
     $row3 = mysqli_fetch_array($res3);
+    $sql="Select * from studentmarks where name='$n'";
+    $que=mysqli_query($con,$sql);
+    $result=mysqli_fetch_array($que);
+    if($result>0)
+    {
     if($row3['physics']==$name){
         $physics = $_POST['physics'];
         $sql1 = "UPDATE studentmarks SET physics='$physics' WHERE name='$n';";
@@ -65,7 +70,25 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
     }
 
     $sucessalert = true;
-            
+    }
+    $n=$_POST['name'];
+    $physics = $_POST['physics'];
+$chemistry = $_POST['Chemistry'];
+$math = $_POST['Maths'];
+$science = $_POST['Science'];
+$Hindi = $_POST['Hindi'];
+$english = $_POST['English'];
+
+      $que="Insert into studentmarks(name,physics,chemistry,maths,science,hindi,english)values('$n',' $physics',' $chemistry',' $math ',' $science',' $Hindi','$english ')";
+      $res=mysqli_query($con, $que);
+     if($res) {
+    echo "Record inserted";
+    echo '<script>alert(" Congratulation Record inserted")</script>';
+} else {
+    echo "Record not inserted";
+    echo '<script>alert(" Sorry!Record not inserted")</script>';
+}
+
     mysqli_close($con);
 }
 
@@ -214,16 +237,16 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
           <?php
         if($row3['hindi']==$name){
         ?>
-
-
-        <div class="form-group">
-           
-            <label for="Hindi" class="mt-2">Hindi</label>
+          <div class="form-group">
+           <label for="hindi" class="mt-2">hindi</label>
              
-           <input type="number" class="form-control"id="Hindi" placeholder="Enter Hindi" name="Hindi">
+           <input type="number" class="form-control"id="hindi" placeholder="Enter hindi" name="Hindi">
                
-           <span id="Message5" class="text-danger font-weight bold "></span>
+           <span id="Message6" class="text-danger font-weight bold "></span>
+           
         </div>
+
+      
          <?php
           }
         ?>
@@ -232,12 +255,12 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
         ?>
 
         <div class="form-group">
-           
-            <label for="English" class="mt-2">English</label>
+           <label for="english" class="mt-2">English</label>
              
-           <input type="number" class="form-control"id="Hindi" placeholder="Enter English" name="English">
+           <input type="number" class="form-control"id="english" placeholder="Enter english" name="English">
                
            <span id="Message6" class="text-danger font-weight bold "></span>
+           
         </div>
          <?php
           }
