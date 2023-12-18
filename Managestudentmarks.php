@@ -76,8 +76,10 @@ include'dbcon.php';
         <th style="color: black">Action Button</th>
          </tr>
          <?php 
-         $que="SELECT class from classes WHERE physics='t1' or math='t1' or science='t1' or hindi='t1' or english='t1' or chemistry='t1'";
+         $que="SELECT class from classes WHERE physics='t1' or maths='t1' or science='t1' or hindi='t1' or english='t1' or chemistry='t1'";
+        
             $res = mysqli_query($con,$que);
+             
             $arr = array();
             while($row=mysqli_fetch_array($res)){
                 array_push($arr,$row['class']);

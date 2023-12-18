@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
     echo $id;
     $res2 = mysqli_query($con,"SELECT * from user WHERE id='$id'");
     $row2 = mysqli_fetch_array($res2);
-    $name = $row['name'];
-    $n = $row2['name'];
+    $name = $row['name'];//teacher name
+    $n = $row2['name'];//student name
 
 
     $class = $row2['class'];
@@ -36,7 +36,42 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
     $sql="Select * from studentmarks where name='$n'";
     $que=mysqli_query($con,$sql);
     $result=mysqli_fetch_array($que);
-    if($result>0)
+    if($result==0)
+    {
+      $que="Insert into studentmarks(name,physics,chemistry,maths,science,hindi,english)values('$n',' $physics',' $chemistry',' $math ',' $science',' $Hindi','$english ')";
+      $res=mysqli_query($con, $que);
+    if($row3['physics']==$name){
+        $physics = $_POST['physics'];
+        $sql1 = "UPDATE studentmarks SET physics='$physics' WHERE name='$n';";
+        $result = mysqli_query($con,$sql1);
+    }
+    if($row3['chemistry']==$name){
+        $chemistry = $_POST['Chemistry'];
+        $sql1 = "UPDATE studentmarks SET chemistry='$chemistry'WHERE name='$n';";
+        $result = mysqli_query($con,$sql1);
+    }
+    if($row3['maths']==$name){
+        $math = $_POST['Maths'];
+        $sql1 = "UPDATE studentmarks SET maths='$math' WHERE name='$n';";
+        $result = mysqli_query($con,$sql1);
+    }
+    if($row3['science']==$name){
+        $science = $_POST['Science'];
+        $sql1 = "UPDATE studentmarks SET science='$science' WHERE name='$n';";
+        $result = mysqli_query($con,$sql1);
+    }
+    if($row3['hindi']==$name){
+        $Hindi = $_POST['Hindi'];
+        $sql1 = "UPDATE studentmarks SET hindi='$Hindi' WHERE name='$n';";
+        $result = mysqli_query($con,$sql1);
+    }
+    if($row3['english']==$name){
+        $english = $_POST['English'];
+        $sql1 = "UPDATE studentmarks SET english='$english' WHERE name='$n';";
+        $result = mysqli_query($con,$sql1);
+    }
+  }
+if($result>0)
     {
     if($row3['physics']==$name){
         $physics = $_POST['physics'];
@@ -69,29 +104,13 @@ if ($_SERVER['REQUEST_METHOD']=="POST"){
         $result = mysqli_query($con,$sql1);
     }
 
+
     $sucessalert = true;
-    }
-    $n=$_POST['name'];
-    $physics = $_POST['physics'];
-$chemistry = $_POST['Chemistry'];
-$math = $_POST['Maths'];
-$science = $_POST['Science'];
-$Hindi = $_POST['Hindi'];
-$english = $_POST['English'];
-
-      $que="Insert into studentmarks(name,physics,chemistry,maths,science,hindi,english)values('$n',' $physics',' $chemistry',' $math ',' $science',' $Hindi','$english ')";
-      $res=mysqli_query($con, $que);
-     if($res) {
-    echo "Record inserted";
+     echo "Record inserted";
     echo '<script>alert(" Congratulation Record inserted")</script>';
-} else {
-    echo "Record not inserted";
-    echo '<script>alert(" Sorry!Record not inserted")</script>';
-}
-
-    mysqli_close($con);
-}
-
+    }
+   
+     }
 ?>
 
 <html>
@@ -165,7 +184,8 @@ $english = $_POST['English'];
             
             $row2 = mysqli_fetch_array($res2);
             
-            $name = $row2['name'];
+            $na = $row2['name'];
+            
             $class = $row2['class'];
             $res3 = mysqli_query($con,"SELECT * from classes where class='$class'");
             $row3 = mysqli_fetch_array($res3);
