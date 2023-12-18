@@ -16,21 +16,11 @@ if(isset($_POST['submit']))
 {
   echo "hy";
    
-    $class = $_POST['Class'];
-    $Teacher = $_POST['Teacher'];
     
-
-    $result = mysqli_query($con,"select class  from classes where id='$class'");
-    $row = mysqli_fetch_array($result);
-    $classname = $row['class'];
-
-    $sresult = mysqli_query($con,"select * from user where Role='$Teacher '");
-    $row1 = mysqli_fetch_array($sresult);
-    $statename = $row1['state'];
-      $class = $_POST['class'];
+      $class = $_POST['Class'];
     $subject = $_POST['Subject'];
-    $name = $_POST['name1'];
-    $sql = "UPDATE classes SET subject=$subject, name='$name' WHERE class='$class'";
+    $teacher = $_POST['Teacher'];
+    $sql = "UPDATE classes SET  $subject='$teacher' WHERE class='$class'";
     $result = mysqli_query($con,$sql);
     if($result)
 {
@@ -62,34 +52,7 @@ else
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
    <script type="text/javascript" src="jquery/jquery.js"></script> 
-    <script type="text/javascript">
-    $(document).ready(function(){
-
-    function loadData(type,category_id)
-    {
-    $.ajax({
-     url:"teachersubject.php",
-     type:"POST",
-     data:{type:type,id:category_id},
-     success:function(data){
-      if(type=="subject")
-      {
-        $("#Subject").html(data);
-      }
-     $("#Teacher").append(data);
-     }
-
-    });
-    }
-    loadData();
-      $("#Teacher").on ("change",function(){
-
-       var teacher=$("#Teacher").val();
-       loadData("teacherData",teacher);
-
-      })
-  });
-  </script>
+   
  
    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -182,8 +145,8 @@ else
     <form action="" method="POST"onsubmit="return validateForm()"name="myForm">
     
             <div class="form-group">
-                 <label for="Username">Name:</label>
-         <input type="text" class="form-control" id="Class" placeholder="Enter class" name="name1">
+                 <label for="class">Class:</label>
+         <input type="text" class="form-control" id="Class" placeholder="Enter class" name="Class">
                <span id="Message1" class="text-danger font-weight bold "></span>
         </div>
          <div class="form-group">
@@ -191,6 +154,15 @@ else
             <label for="Teacher" class="mt-2">Teacher</label>
             <select type="text" name="Teacher" id="Teacher" class="form-control mt-2" >
            <option value="">Select Teacher</option>
+           <?php
+                    require_once 'dbcon.php';
+                    $result = mysqli_query($con,"SELECT * from user WHERE Role='teacher'");
+                    while($row = mysqli_fetch_array($result)){
+                        ?>
+                        <option value="<?php echo $row['name'];?>"><?php echo $row['name'];?></option>
+                        <?php
+                    }
+                    ?>
        </select>
              <span id="Message2" class="text-danger font-weight bold "></span>
  
@@ -198,8 +170,14 @@ else
          <div class="form-group">
                  
             <label for="Subject" class="mt-2">Subject</label>
-            <select type="text" name="SubjectSubject"Subject" class="form-control mt-2">
+            <select type="text" name="Subject" class="form-control mt-2">
             <option value="">Select Subject</option>
+            <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="math">Math</option>
+                        <option value="science">Science</option>
+                        <option value="english">English</option>
+                        <option value="hindi">Hindi</option>
           </select>
              <span id="Message3" class="text-danger font-weight bold "></span>
          </div>

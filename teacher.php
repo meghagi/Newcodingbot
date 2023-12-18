@@ -1,7 +1,7 @@
 <?php
 session_start();
 include'dbcon.php';
- $email = $_SESSION['Email'];
+ $email = $_SESSION['Email'];//intializing variable in session
     $sql = mysqli_query($con,"SELECT * from user where email='$email'");
     $row = mysqli_fetch_array($sql);
     $role = $row['Role'];
@@ -38,10 +38,10 @@ include'dbcon.php';
                 <a class="nav-link ms-3 active" href="manageuser.php"></a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="#">Home</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="Managestudentmarks.php">Manage student marks</a>
             </li>
             <li class="nav-item" id="hm">
                 <a class="nav-link ms-3 active" href=""></a>
@@ -56,7 +56,7 @@ include'dbcon.php';
                 <a class="nav-link ms-3" href="logout.php"><i class="fa fa-sign-out"></i>Logout</a>
             </li>
             <li calss="nav-item" id="prfa">
-                <a class="nav-link ms-3" href="profile.php"><i class="fa fa-user"></i> Profile</a>
+                <a class="nav-link ms-3" href="useraccountteacher.php"><i class="fa fa-user"></i> Profile</a>
             </li>
            
         </ul>
@@ -68,9 +68,11 @@ include'dbcon.php';
 	   <h1 style="background-color:lightgrey" align="center"> Display table data</h1>
 	   <table class="table table-striped table-hover table-bordered">
 		<tr>
-			<th style="color:black">id</th>
-			<th style="color: black">Email</th>
-      <th style="color: black">Role</th>
+			
+			<th style="color: black">id</th>
+      <th style="color: black">email</th>
+        <th style="color: black">Role</th>
+      
          </tr>
          <?php 
          $que="SELECT * from user WHERE  Role='student' ORDER by id ASC";
@@ -82,13 +84,14 @@ while($res=mysqli_fetch_array($result))
 			
 		
 			<tr>
-			<td><?php echo $res['id'];?></td>
+			
 		
-		
-			<td><?php echo $res['email'];?></td>
-		
+		<td><?php echo $res['id']; ?></td>
+                        <td><?php echo $res['email']; ?></td>
+                        <td><?php echo $res['Role']; ?></td>
+
          
-             <td><?php echo $res['Role'];?></td>
+          
 
              </tr>
 

@@ -156,7 +156,7 @@ function validateForm()
       }
        if(errormessage!="")
    {
-    alert("Enter all field") ;
+    alert("errormessage") ;
     return false;
    }
  }

@@ -42,7 +42,7 @@ else
                 <a class="nav-link ms-3 active" href="manageadmission.php">Manage Admission</a>
             </li>
             <li class="nav-item" id="hm">
-                <a class="nav-link ms-3 active" href="">Manage Teacher</a>
+                <a class="nav-link ms-3 active" href="manageteacher.php">Manage Teacher</a>
             </li>
             <li class="nav-item" id="hm">
                 <a class="nav-link ms-3 active" href=""></a>

@@ -46,10 +46,10 @@ session_start();
                 <a class="nav-link ms-3 active" href="manageadmission.php">Manage Admission</a>
             </li>
             <li class="nav-item" id="tec">
-                <a class="nav-link ms-3 active" href="">Manage Teacher</a>
+                <a class="nav-link ms-3 active" href="manageteacher.php">Manage Teacher</a>
             </li>
             <li class="nav-item" id="">
-                <a class="nav-link ms-3 active" href=""></a>
+                <a class="nav-link ms-3 active" href="managestudent.php">Manage Student</a>
             </li>
             <li class="nav-item" id="">
                 <a class="nav-link mr-3 active" href=""></a>
@@ -107,6 +107,7 @@ session_start();
          <?php echo '<input type="hidden" class="admission_id_value" value='.$row["id"].'>' ?>
        <?php echo  '<a href="javascript:void(0)" title="Change Status" class="teacher_btn_ajax btn btn-success ms-3 mt-2" data-toggle="tooltip">Teacher</a>';?>
         <?php echo '<input type="hidden" class="teacher_id_value" value='.$row["id"].'>' ?>
+
 
      
      

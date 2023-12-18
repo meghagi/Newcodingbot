@@ -5,6 +5,7 @@ include'dbcon.php';
     $sql = mysqli_query($con,"SELECT * from user where email='$email'");
     $row = mysqli_fetch_array($sql);
     $role = $row['Role'];
+    $name = $row['name'];
     if($_SESSION['loggedin']!="true" || ($_SESSION['loggedin']!=true) || $role!='student'){
         header("location: login.php");
         exit;
@@ -104,5 +105,57 @@ while($res=mysqli_fetch_array($result))
     </div>
 
    </div>
+   <div class="container">
+     <h1 class="mt-3 text-center"></h1>
+      <div class="col-lg-12">
+     <h1 style="background-color:lightgrey" align="left"> Marksheet</h1>
+     <table class="table table-striped table-hover table-bordered">
+    <tr>
+      <th style="color:black">name</th>
+      <th style="color: black">physics</th>
+      <th style="color: black">chemistry</th>
+       <th style="color: black">maths</th>
+        <th style="color: black">science</th>
+         <th style="color: black">hindi</th>
+          <th style="color: black">english </th>
+         </tr>
+         <?php 
+         $que="SELECT * from studentmarks WHERE name='$name'";
+if($result=mysqli_query($con, $que));
+while($res=mysqli_fetch_array($result))
+{
+
+?>
+      
+    
+      <tr>
+      <td><?php echo $res['name'];?></td>
+    
+    
+      <td><?php echo $res['physics'];?></td>
+    
+         
+             <td><?php echo $res['chemistry'];?></td>
+              <td><?php echo $res['maths'];?></td>
+               <td><?php echo $res['science'];?></td>
+               <td><?php echo $res['hindi'];?></td>
+               <td><?php echo $res['english'];?></td>
+
+
+             </tr>
+
+
+             <?php
+             }
+
+             ?>
+     </table>
+     
+
+     </div>
+    </div>
+
+   </div>
+  
   </body>
   </html>

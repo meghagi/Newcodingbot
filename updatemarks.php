@@ -184,7 +184,9 @@ if($result>0)
             
             $row2 = mysqli_fetch_array($res2);
             
-            $na = $row2['name'];
+            $na = $row2['name'];//student
+            $name=$row['name'];//teacher
+            print_r($name);
             
             $class = $row2['class'];
             $res3 = mysqli_query($con,"SELECT * from classes where class='$class'");

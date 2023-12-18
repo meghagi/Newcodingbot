@@ -14,7 +14,7 @@ else
 $id = $name = $class= $section = $country = $state = $city  = $image = '';
 $id = $_GET['id'];
 
-$sql = "select * from user where id='$id';";
+$sql = "select * from user where id='$id'";
 $res = mysqli_query($con, $sql);
 $data = mysqli_fetch_array($res);
 
